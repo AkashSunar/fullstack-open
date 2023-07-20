@@ -19,12 +19,7 @@ const App = () => {
     <div>
       <Header course={course} />
       <Content parts={parts} />
-      <Total
-        //  exercises={exercises}
-        parts={parts}
-        // exercises2={parts.exercises}
-        // exercises3={parts.exercises}
-      /> 
+      <Total parts={parts} />
     </div>
   );
 };
