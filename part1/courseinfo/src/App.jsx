@@ -47,24 +47,6 @@ export default App;
 
 
 
-// const App = (props) => {
-//   return (
-//     <div>
-//       <h1>{props.course}</h1>
-//       <p>
-//         {props.part1} {props.exercises1}
-//       </p>
-//       <p>
-//         {props.part2} {props.exercises2}
-//       </p>
-//       <p>
-//         {props.part3} {props.exercises3}
-//       </p>
-//       <p>Number of exercises {props.exercises1 + props.exercises2 + props.exercises3}</p>
-//     </div>
-//   )
-// }
-
 
 
 
