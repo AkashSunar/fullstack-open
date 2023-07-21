@@ -1,4 +1,13 @@
 import { useState } from "react";
+
+const StatisticLine = ({ text, value }) => {
+  return (
+    <p>
+      {text} {value}
+    </p>
+  );
+};
+
 const Statistics = ({ stats, check }) => {
   let all = stats.good + stats.bad + stats.neutral;
   let avg = (stats.good - stats.bad) / all;
@@ -7,12 +16,12 @@ const Statistics = ({ stats, check }) => {
     <div>
       {check ? (
         <div>
-          <p>good:{stats.good}</p>
-          <p>neutral:{stats.neutral}</p>
-          <p>bad:{stats.bad}</p>
-          <p>all:{all}</p>
-          <p>average:{avg}</p>
-          <p>positive:{positive}%</p>
+          <StatisticLine text="good" value={stats.good} />
+          <StatisticLine text="neutral" value={stats.neutral} />
+          <StatisticLine text="bad" value={stats.bad} />
+          <StatisticLine text="all" value={all} />
+          <StatisticLine text="avg" value={avg} />
+          <StatisticLine text="positive" value={positive} />
         </div>
       ) : (
         <div>
@@ -22,7 +31,7 @@ const Statistics = ({ stats, check }) => {
     </div>
   );
 };
-const Button = ({myFunc,text}) => {
+const Button = ({ myFunc, text }) => {
   return <button onClick={myFunc}>{text}</button>;
 };
 
