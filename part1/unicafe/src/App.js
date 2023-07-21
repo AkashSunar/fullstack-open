@@ -1,29 +1,30 @@
 import { useState } from "react";
-const Statistics = ({ stats,check }) => {
+const Statistics = ({ stats, check }) => {
   let all = stats.good + stats.bad + stats.neutral;
   let avg = (stats.good - stats.bad) / all;
   let positive = stats.good / all;
   return (
     <div>
-      <p>good:{stats.good}</p>
-      <p>neutral:{stats.neutral}</p>
-      <p>bad:{stats.bad}</p>
-      <p>all:{all}</p>
       {check ? (
         <div>
+          <p>good:{stats.good}</p>
+          <p>neutral:{stats.neutral}</p>
+          <p>bad:{stats.bad}</p>
+          <p>all:{all}</p>
           <p>average:{avg}</p>
           <p>positive:{positive}%</p>
         </div>
       ) : (
         <div>
-          <p>average:{0}</p>
-          <p>positive:{0}%</p>
+          <p>no feedback given</p>
         </div>
       )}
     </div>
   );
 };
-
+const Button = ({myFunc,text}) => {
+  return <button onClick={myFunc}>{text}</button>;
+};
 
 const App = () => {
   // save clicks of each button to its own state
@@ -49,9 +50,9 @@ const App = () => {
         <h1>Give Feedback</h1>
       </div>
       <div>
-        <button onClick={increaseGood}>good</button>
-        <button onClick={increaseNeutral}>neutral </button>
-        <button onClick={increaseBad}>bad</button>
+        <Button myFunc={increaseGood} text={"good"} />
+        <Button myFunc={increaseNeutral} text={"neutral"} />
+        <Button myFunc={increaseBad} text={"bad"} />
       </div>
       <div>
         <Statistics stats={{ good, neutral, bad }} check={check} />
