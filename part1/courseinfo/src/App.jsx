@@ -25,6 +25,7 @@ const App = () => {
     </div>
   );
 };
+
 const Header = (props) => {
   return (
     <h1>
@@ -45,15 +46,7 @@ const Total = (props) => {
   return <p>Number of exercises {sum}</p>;
 };
 
-// *const Part = (props ) => {
-//   return (
-//     <p>
-//       {props.part} {props.exercises}
-//     </p>
-//   );
-// };
 
-//destructuring the props (props.part,props.exercises)=>({part,exercises})
 const Part = ({part,exercises}) => {
   return (
     <p>
