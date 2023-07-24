@@ -18,6 +18,11 @@ const App = () => {
         exercises: 14,
         id: 3,
       },
+      {
+        name: "Redux",
+        exercises: 11,
+        id:4
+      }
     ],
   };
 
@@ -25,6 +30,8 @@ const App = () => {
     <div>
       <Course course={course} />
       <Content course={course} />
+      <Total parts={ course.parts} />
+
     </div>
   );
 };
@@ -43,4 +50,11 @@ const Part = (props) => {
     </p>
   );
 };
+const Total = (props) => {
+  let sum = 0;
+  props.parts.map((val) => {
+    sum += val.exercises;
+  });
+  return <h4>total of {sum} exercises</h4>
+}
 export default App;
