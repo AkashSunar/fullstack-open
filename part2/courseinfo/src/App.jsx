@@ -51,10 +51,12 @@ const Part = (props) => {
   );
 };
 const Total = (props) => {
-  let sum = 0;
-  props.parts.map((val) => {
-    sum += val.exercises;
-  });
-  return <h4>total of {sum} exercises</h4>
+  let sum = props.parts.reduce((accumulator, curVal) => {
+    return (accumulator + curVal.exercises);
+  }, 0);
+  // props.parts.map((val) => {
+  //   sum += val.exercises;
+  // });
+  return (<h4>total of {sum} exercises</h4>)
 }
 export default App;
