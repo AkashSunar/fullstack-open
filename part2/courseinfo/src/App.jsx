@@ -1,46 +1,4 @@
-const Header = ({ headertext }) => {
-  return <h2>{headertext}</h2>;
-};
-const Content = ({ val }) => {
-  return (
-    <p>
-      {val.map((element) => (
-        <Part
-          key={element.id}
-          name={element.name}
-          exercises={element.exercises}
-        />
-      ))}
-    </p>
-  );
-};
-const Part = ({ name, exercises }) => {
-  return (
-    <p>
-      {name} {exercises}
-    </p>
-  );
-};
-const Total = ({ val }) => {
-  let sum = val.reduce((accumulator, curVal) => {
-    return accumulator + curVal.exercises;
-  }, 0);
-  return <h4>total of {sum} exercises</h4>;
-};
-const Course = ({ courses }) => {
-  return (
-    <div>
-      {console.log(courses)}
-      {courses.map((value) => (
-        <>
-          <Header headertext={value.name} key={value.id} />
-          <Content val={value.parts} key={value.id} />
-          <Total val={value.parts} />
-        </>
-      ))}
-    </div>
-  );
-};
+import Course from "./course/Course";
 
 const App = () => {
   const courses = [
@@ -90,27 +48,11 @@ const App = () => {
 
   return (
     <div>
+      <h1>Web development curriculum</h1>
       <Course courses={courses} />
-      {/* <Content course={courses} /> */}
-      {/* <Total parts={ courses[0].parts} /> */}
     </div>
   );
 };
 
-// const Part = (props) => {
-//   return (
-//     <p>
-//       {props.part} {props.exercises}
-//     </p>
-//   );
-// };
-// const Total = (props) => {
-//   let sum = props.parts.reduce((accumulator, curVal) => {
-//     return accumulator + curVal.exercises;
-//   }, 0);
-//   // props.parts.map((val) => {
-//   //   sum += val.exercises;
-//   // });
-//   return <h4>total of {sum} exercises</h4>;
-// };
+
 export default App;
