@@ -3,9 +3,16 @@ import { useState } from "react";
 const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
   const [newName, setNewName] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    setPersons(persons.concat({ name: newName }));
+    let personsArray = persons.map((val) => {
+      return val.name;
+    });
+
+    !personsArray.includes(newName)
+      ? setPersons(persons.concat({ name: newName }))
+      : alert(newName + " is already added to the phonebook");
     setNewName("");
   };
   const handleChange = (event) => {
