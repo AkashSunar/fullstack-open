@@ -2,8 +2,12 @@ import { useState } from "react";
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: "Arto Hellas", number: "040-123456" },
+    { name: "Arto Hellas", number: "040-123456", id: 1 },
+    { name: "Ada Lovelace", number: "39-44-5323523", id: 2 },
+    { name: "Dan Abramov", number: "12-43-234345", id: 3 },
+    { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
   ]);
+  const [filterName, setfilterName] = useState("");
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
 
@@ -16,6 +20,7 @@ const App = () => {
     !personsArray.includes(newName)
       ? setPersons(persons.concat({ name: newName, number: newNumber }))
       : alert(newName + " is already added to the phonebook");
+
     setNewName("");
     setNewNumber("");
   };
@@ -26,13 +31,19 @@ const App = () => {
   const handleNum = (event) => {
     setNewNumber(event.target.value);
   };
+  const showVal = persons.filter((val) =>
+    filterName.length === 0 ? true : val.name.toLowerCase().startsWith(filterName.toLowerCase())
+  );
+  const handleFilterName = (event) => {
+    setfilterName(event.target.value);
+  };
 
   return (
     <div>
       <h2>Phonebook</h2>
       <form>
         <div>
-          filter shown with: <input></input>
+          filter shown with: <input onChange={handleFilterName}></input>
         </div>
       </form>
       <form onSubmit={handleSubmit}>
@@ -51,7 +62,7 @@ const App = () => {
       <h2>Numbers</h2>
       <div>
         <div>
-          {persons.map((value, index) => {
+          {showVal.map((value, index) => {
             return (
               <p key={index}>
                 {value.name} {value.number}
