@@ -1,8 +1,9 @@
 import { useState } from "react";
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
-  const [number, setNumber] = useState([{ number: 9833 }]);
+  const [persons, setPersons] = useState([
+    { name: "Arto Hellas", number: "040-123456" },
+  ]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
 
@@ -13,9 +14,8 @@ const App = () => {
     });
 
     !personsArray.includes(newName)
-      ? setPersons(persons.concat({ name: newName }))
+      ? setPersons(persons.concat({ name: newName, number: newNumber }))
       : alert(newName + " is already added to the phonebook");
-    setNumber(number.concat({ number: newNumber }));
     setNewName("");
     setNewNumber("");
   };
@@ -30,7 +30,13 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <form>
+        <div>
+          filter shown with: <input></input>
+        </div>
+      </form>
       <form onSubmit={handleSubmit}>
+        <h2>add a new</h2>
         <div>
           name: <input value={newName} onChange={handleChange} />
         </div>
@@ -46,10 +52,9 @@ const App = () => {
       <div>
         <div>
           {persons.map((value, index) => {
-            let num = number[index];
             return (
               <p key={index}>
-                {value.name} {num.number}
+                {value.name} {value.number}
               </p>
             );
           })}
