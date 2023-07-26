@@ -1,4 +1,7 @@
 import { useState } from "react";
+import Persons from "./components/Persons";
+import PersonForm from "./components/PersonForm";
+import Filter from "./components/Filter";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -20,7 +23,6 @@ const App = () => {
     !personsArray.includes(newName)
       ? setPersons(persons.concat({ name: newName, number: newNumber }))
       : alert(newName + " is already added to the phonebook");
-
     setNewName("");
     setNewNumber("");
   };
@@ -32,7 +34,9 @@ const App = () => {
     setNewNumber(event.target.value);
   };
   const showVal = persons.filter((val) =>
-    filterName.length === 0 ? true : val.name.toLowerCase().startsWith(filterName.toLowerCase())
+    filterName.length === 0
+      ? true
+      : val.name.toLowerCase().startsWith(filterName.toLowerCase())
   );
   const handleFilterName = (event) => {
     setfilterName(event.target.value);
@@ -41,36 +45,17 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <form>
-        <div>
-          filter shown with: <input onChange={handleFilterName}></input>
-        </div>
-      </form>
-      <form onSubmit={handleSubmit}>
-        <h2>add a new</h2>
-        <div>
-          name: <input value={newName} onChange={handleChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNum} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-
+      <Filter handleFilterName={handleFilterName} />
+      <h2>add a new</h2>
+      <PersonForm
+        handleChange={handleChange}
+        handleNum={handleNum}
+        newName={newName}
+        newNumber={newNumber}
+        handleSubmit={handleSubmit}
+      />
       <h2>Numbers</h2>
-      <div>
-        <div>
-          {showVal.map((value, index) => {
-            return (
-              <p key={index}>
-                {value.name} {value.number}
-              </p>
-            );
-          })}
-        </div>
-      </div>
+      <Persons persons={showVal} />
     </div>
   );
 };
