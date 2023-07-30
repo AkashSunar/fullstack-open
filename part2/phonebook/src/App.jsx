@@ -14,18 +14,29 @@ const App = () => {
     let myAxiosPromise = axios.get("http://localhost:3001/persons");
     myAxiosPromise.then((myResult) => {
       setPersons(myResult.data);
+      console.log("hello");
     });
   }, []);
+
+  const addContact = () => {
+    let postPromise = axios.post("http://localhost:3001/persons", {
+      name: newName,
+      number: newNumber,
+    });
+    postPromise.then((result) => {
+      setPersons(persons.concat(result.data));
+    });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     let personsArray = persons.map((val) => {
       return val.name;
     });
-
     !personsArray.includes(newName)
-      ? setPersons(persons.concat({ name: newName, number: newNumber }))
+      ? addContact()
       : alert(newName + " is already added to the phonebook");
+
     setNewName("");
     setNewNumber("");
   };
@@ -36,11 +47,13 @@ const App = () => {
   const handleNum = (event) => {
     setNewNumber(event.target.value);
   };
-  const showVal = persons.filter((val) =>
-    filterName.length === 0
+  const showVal = persons.filter((val) => {
+    return filterName.length === 0
       ? true
-      : val.name.toLowerCase().startsWith(filterName.toLowerCase())
-  );
+      : val
+      ? console.log(val)
+      : val.name.toLowerCase().includes(filterName.toLowerCase());
+  });
   const handleFilterName = (event) => {
     setfilterName(event.target.value);
   };
