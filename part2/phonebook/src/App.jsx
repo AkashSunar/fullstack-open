@@ -50,9 +50,7 @@ const App = () => {
   const showVal = persons.filter((val) => {
     return filterName.length === 0
       ? true
-      : val
-      ? console.log(val)
-      : val.name.toLowerCase().includes(filterName.toLowerCase());
+      : val.name.toLowerCase().startsWith(filterName.toLowerCase());
   });
   const handleFilterName = (event) => {
     setfilterName(event.target.value);
