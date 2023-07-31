@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
-import axios from "axios";
 import personServices from "./services/phonebook";
 // import phonebook from "./services/phonebook";
 
@@ -21,8 +20,9 @@ const App = () => {
   }, []);
 
   const addContact = () => {
-    let newPerson = { name: newName, number: newNumber, };
-    let postPromise =personServices.create(newPerson); //axios.post("http://localhost:3001/persons", {
+    let newPerson = { name: newName, number: newNumber };
+    let postPromise = personServices.create(newPerson);
+    //axios.post("http://localhost:3001/persons", {
     // name: newName,
     // number: newNumber,
     // });
@@ -58,7 +58,9 @@ const App = () => {
   const handleFilterName = (event) => {
     setfilterName(event.target.value);
   };
-
+  // const handleDelete = () => {
+  //   return console.log("hello")
+  // }
   return (
     <div>
       <h2>Phonebook</h2>
@@ -72,7 +74,7 @@ const App = () => {
         handleSubmit={handleSubmit}
       />
       <h2>Numbers</h2>
-      <Persons persons={showVal} />
+      <Persons persons={showVal} setPersons={setPersons} />
     </div>
   );
 };
