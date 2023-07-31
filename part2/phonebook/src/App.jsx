@@ -3,6 +3,8 @@ import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
 import axios from "axios";
+import personServices from "./services/phonebook";
+// import phonebook from "./services/phonebook";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -11,7 +13,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
 
   useEffect(() => {
-    let myAxiosPromise = axios.get("http://localhost:3001/persons");
+    let myAxiosPromise = personServices.getAll();
     myAxiosPromise.then((myResult) => {
       setPersons(myResult.data);
       console.log("hello");
@@ -19,10 +21,11 @@ const App = () => {
   }, []);
 
   const addContact = () => {
-    let postPromise = axios.post("http://localhost:3001/persons", {
-      name: newName,
-      number: newNumber,
-    });
+    let newPerson = { name: newName, number: newNumber, };
+    let postPromise =personServices.create(newPerson); //axios.post("http://localhost:3001/persons", {
+    // name: newName,
+    // number: newNumber,
+    // });
     postPromise.then((result) => {
       setPersons(persons.concat(result.data));
     });
