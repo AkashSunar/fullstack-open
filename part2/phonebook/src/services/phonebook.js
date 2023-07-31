@@ -1,13 +1,16 @@
 import axios from "axios";
 let baseUrl = "http://localhost:3001/persons";
 const getAll = () => {
-    return axios.get(baseUrl)
-}
+  return axios.get(baseUrl);
+};
 const create = (personObj) => {
-    return axios.post(baseUrl, personObj);
+  return axios.post(baseUrl, personObj);
+};
+const deletePerson = (id) => {
+  return axios.delete(`${baseUrl}/${id}`);
+};
+const updateNumber = (id) => {
+    return axios.put(`${baseUrl}/${id}`)
+    
 }
-const deletePerson=(id) => {
-    return axios.delete(`${baseUrl}/${id}`
-    )
-}
-export default {getAll,create,deletePerson}
+export default { getAll, create, deletePerson,updateNumber };

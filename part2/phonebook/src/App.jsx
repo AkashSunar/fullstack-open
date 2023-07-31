@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
+
 import personServices from "./services/phonebook";
 // import phonebook from "./services/phonebook";
 
@@ -22,13 +23,13 @@ const App = () => {
   const addContact = () => {
     let newPerson = { name: newName, number: newNumber };
     let postPromise = personServices.create(newPerson);
-    //axios.post("http://localhost:3001/persons", {
-    // name: newName,
-    // number: newNumber,
-    // });
+
     postPromise.then((result) => {
       setPersons(persons.concat(result.data));
     });
+  };
+  const updateNum = () => {
+    setNewNumber(persons.map((val) => (val.number = newNumber)));
   };
 
   const handleSubmit = (event) => {
@@ -38,7 +39,12 @@ const App = () => {
     });
     !personsArray.includes(newName)
       ? addContact()
-      : alert(newName + " is already added to the phonebook");
+      : window.confirm(
+          newName +
+            " is already added to the phonebook,replace the old number with a new one "
+        )
+      ? updateNum()
+      : null;
 
     setNewName("");
     setNewNumber("");
@@ -58,9 +64,7 @@ const App = () => {
   const handleFilterName = (event) => {
     setfilterName(event.target.value);
   };
-  // const handleDelete = () => {
-  //   return console.log("hello")
-  // }
+
   return (
     <div>
       <h2>Phonebook</h2>
