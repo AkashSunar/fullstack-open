@@ -82,7 +82,7 @@ const App = () => {
         handleSubmit={handleSubmit}
       />
       <h2>Numbers</h2>
-      <Persons persons={showVal} setPersons={setPersons} />
+      <Persons persons={showVal} setPersons={setPersons} notification={setNotification} />
     </div>
   );
 };

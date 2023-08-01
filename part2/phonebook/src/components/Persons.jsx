@@ -1,12 +1,18 @@
 import personServices from "../services/phonebook"
+// import Notification from "./Notification";
 
-const Persons = ({ persons, setPersons }) => {
-  const handleDelete = (id,name) => {
-    // return console.log(`${persons[0].name},${persons[0].id}`);
+const Persons = ({ persons, setPersons,notification }) => {
+  const handleDelete = (id, name) => {
     if (window.confirm(`Delete ${name}?`)) {
       personServices.deletePerson(id).then(() => {
-        setPersons(persons.filter((person)=>person.id !==id))
-      }).catch((error)=>{console.log("error deleting the person:",error)})
+        setPersons(persons.filter((person) => person.id !== id))
+        notification(`Deleted ${name}`);
+        setTimeout(()=>{notification("")},2000)
+      }).catch((error) => {
+        if (error.response.status === 404) {
+          notification(`Information of ${name} has already been removed from the server`);
+        setTimeout(()=>{notification("")},2000)}
+      })
     }
   };
   return (
