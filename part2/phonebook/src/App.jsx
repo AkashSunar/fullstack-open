@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
-
+import Notification from "./components/Notification";
 import personServices from "./services/phonebook";
 // import phonebook from "./services/phonebook";
 
@@ -11,6 +11,7 @@ const App = () => {
   const [filterName, setfilterName] = useState("");
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
+  const [notification,setNotification]=useState("")
 
   useEffect(() => {
     let myAxiosPromise = personServices.getAll();
@@ -44,7 +45,9 @@ const App = () => {
             " is already added to the phonebook,replace the old number with a new one "
         )
       ? updateNum()
-      : null;
+        : null;
+    setNotification(`Added ${newName}`);
+    setTimeout(() => { setNotification("")},2000);
 
     setNewName("");
     setNewNumber("");
@@ -68,6 +71,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notification} />
       <Filter handleFilterName={handleFilterName} />
       <h2>add a new</h2>
       <PersonForm
