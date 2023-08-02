@@ -3,7 +3,7 @@ import personServices from "../services/phonebook"
 
 const Persons = ({ persons, setPersons,notification }) => {
   const handleDelete = (id, name) => {
-    if (window.confirm(`Delete ${name}?`)) {
+  if (window.confirm(`Delete ${name}?`)) {
       personServices.deletePerson(id).then(() => {
         setPersons(persons.filter((person) => person.id !== id))
         notification(`Deleted ${name}`);
