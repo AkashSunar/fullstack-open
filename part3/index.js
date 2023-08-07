@@ -47,13 +47,19 @@ app.delete("/api/persons/:id", (request, response) => {
   response.status(204).send(`The person info at id ${myId} has been deleted`);
 });
 app.post("/api/persons", (request, response) => {
-  const myNewPost = request.body
-  const myId = Math.floor(Math.random()*100);
-  myNewPost.id = myId
-  persons.push(myNewPost);
-  console.log(myNewPost)
-  
-})
+  const myNewPost = request.body;
+  const myId = Math.floor(Math.random() * 100);
+  myNewPost.id = myId;
+  if (persons.map((person) => person.name).includes(myNewPost.name)) {
+    response.status(404).send("Name must be unique");
+  } else if (myNewPost.name === "" || myNewPost.number === "") {
+    response.status(404).send("The name or number is missing");
+  } else {
+    persons.push(myNewPost);
+    response.status(404).send("The contact is added successfully");
+  }
+ console.log(myNewPost);
+});
 const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
