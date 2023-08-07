@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 let myDate = new Date();
-const persons = [
+let persons = [
   {
     id: 1,
     name: "Arto Hellas",
@@ -35,10 +35,15 @@ app.get("/info", (request, response) => {
 
 app.get("/api/persons/:id", (request, response) => {
   const myId = Number(request.params.id);
-  const personInfo = persons.find((person) => person.id === myId);
-  personInfo  //using ternary operator
+  const personInfo= persons.find((person) => person.id === myId);
+  personInfo  //using ternary operato
     ? response.json(personInfo)
     : response.status(404).send(`There is no person info at id ${myId}`);
+});
+app.delete("/api/persons/:id", (request, response) => {
+  const myId = Number(request.params.id);
+  persons= persons.filter((person) => person.id !== myId);
+   response.status(204).send(`The person info at id ${myId} has been deleted`);
 });
 const PORT = 3001;
 app.listen(PORT);
