@@ -32,6 +32,14 @@ app.get("/info", (request, response) => {
     `<p>Phonebook has info for ${persons.length} people<br> ${myDate} </p>`
   );
 });
+
+app.get("/api/persons/:id", (request, response) => {
+  const myId = Number(request.params.id);
+  const personInfo = persons.find((person) => person.id === myId);
+  personInfo  //using ternary operator
+    ? response.json(personInfo)
+    : response.status(404).send(`There is no person info at id ${myId}`);
+});
 const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
