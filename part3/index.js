@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+app.use(express.json());
 
 let myDate = new Date();
 let persons = [
@@ -35,16 +36,24 @@ app.get("/info", (request, response) => {
 
 app.get("/api/persons/:id", (request, response) => {
   const myId = Number(request.params.id);
-  const personInfo= persons.find((person) => person.id === myId);
-  personInfo  //using ternary operato
+  const personInfo = persons.find((person) => person.id === myId);
+  personInfo //using ternary operato
     ? response.json(personInfo)
     : response.status(404).send(`There is no person info at id ${myId}`);
 });
 app.delete("/api/persons/:id", (request, response) => {
   const myId = Number(request.params.id);
-  persons= persons.filter((person) => person.id !== myId);
-   response.status(204).send(`The person info at id ${myId} has been deleted`);
+  persons = persons.filter((person) => person.id !== myId);
+  response.status(204).send(`The person info at id ${myId} has been deleted`);
 });
+app.post("/api/persons", (request, response) => {
+  const myNewPost = request.body
+  const myId = Math.floor(Math.random()*100);
+  myNewPost.id = myId
+  persons.push(myNewPost);
+  console.log(myNewPost)
+  
+})
 const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
