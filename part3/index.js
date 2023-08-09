@@ -1,7 +1,13 @@
 const express = require("express");
 const app = express();
 app.use(express.json());
-
+const morgan = require("morgan");
+morgan.token("body", (req, res)=> 
+  JSON.stringify(req.body)
+);
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms :body")
+);
 let myDate = new Date();
 let persons = [
   {
@@ -58,7 +64,11 @@ app.post("/api/persons", (request, response) => {
     persons.push(myNewPost);
     response.status(404).send("The contact is added successfully");
   }
- console.log(myNewPost);
+  console.log(myNewPost);
+});
+
+app.use((request, response, next) => {
+  response.status(404).send("the url is not found");
 });
 const PORT = 3001;
 app.listen(PORT);
