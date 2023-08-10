@@ -26,7 +26,7 @@ const App = () => {
 
     postPromise.then((result) => {
       setPersons(persons.concat(result.data));
-    }).catch(e=>console.log("error happened"));
+    }).catch(e=>console.log(e));
   };
   const updateNum = () => {
    
