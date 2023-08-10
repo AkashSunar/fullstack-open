@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 app.use(express.json());
+app.use(cors());
 const morgan = require("morgan");
 morgan.token("body", (req, res)=> 
   JSON.stringify(req.body)
@@ -62,7 +64,7 @@ app.post("/api/persons", (request, response) => {
     response.status(404).send("The name or number is missing");
   } else {
     persons.push(myNewPost);
-    response.status(404).send("The contact is added successfully");
+    response.status(200).json(myNewPost);
   }
   console.log(myNewPost);
 });

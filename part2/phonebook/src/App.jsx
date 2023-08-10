@@ -4,7 +4,7 @@ import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
 import Notification from "./components/Notification";
 import personServices from "./services/phonebook";
-// import phonebook from "./services/phonebook";
+
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -17,7 +17,6 @@ const App = () => {
     let myAxiosPromise = personServices.getAll();
     myAxiosPromise.then((myResult) => {
       setPersons(myResult.data);
-      console.log("hello");
     });
   }, []);
 
@@ -27,10 +26,11 @@ const App = () => {
 
     postPromise.then((result) => {
       setPersons(persons.concat(result.data));
-    });
+    }).catch(e=>console.log("error happened"));
   };
   const updateNum = () => {
-    setNewNumber(persons.map((val) => (val.number = newNumber)));
+   
+    setPersons(persons.map(val => val.name === newName ? {...val,number:newNumber}:val))
   };
 
   const handleSubmit = (event) => {
@@ -48,7 +48,6 @@ const App = () => {
         : null;
     setNotification(`Added ${newName}`);
     setTimeout(() => { setNotification("")},2000);
-
     setNewName("");
     setNewNumber("");
   };
