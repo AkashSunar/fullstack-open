@@ -26,13 +26,21 @@ app.get("/info", (request, response) => {
   );
 });
 
-app.get("/api/persons/:id", (request, response) => {
-  const myId = Number(request.params.id);
-  const personInfo = persons.find((person) => person.id === myId);
-  personInfo //using ternary operato
-    ? response.json(personInfo)
-    : response.status(404).send(`There is no person info at id ${myId}`);
+app.get("/api/persons/:id", (request, response,next) => {
+  Person.findById(request.params.id).then((result) => {
+    result
+      ? response.json(result)
+      : response.status(404).send(`There is no person info at id ${request.params.id}`);
+  }).catch((e) => {next(e)});
 });
+
+// app.get("/api/persons/:id", (request, response) => {
+//   const myId = Number(request.params.id);
+//   const personInfo = persons.find((person) => person.id === myId);
+//   personInfo //using ternary operato
+//     ? response.json(personInfo)
+//     : response.status(404).send(`There is no person info at id ${myId}`);
+// });
 
 app.delete("/api/persons/:id", (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
@@ -63,6 +71,20 @@ app.post("/api/persons", (request, response) => {
 app.use((request, response, next) => {
   response.status(404).send("the url is not found");
 });
+
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message);
+
+  if (error.name === "CastError") {
+    return response.status(400).send({ error: "malformatted id" });
+  }
+
+  next(error);
+};
+
+// this has to be the last loaded middleware.
+app.use(errorHandler);
+
 const PORT = process.env.PORT?process.env.PORT:3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
