@@ -38,29 +38,22 @@ app.delete("/api/persons/:id", (request, response) => {
   persons = persons.filter((person) => person.id !== myId);
   response.status(204).send(`The person info at id ${myId} has been deleted`);
 });
+
 app.post("/api/persons", (request, response) => {
-  const myNewPost = request.body;
-  const myId = Math.floor(Math.random() * 100);
-  myNewPost.id = myId;
-  if (persons.map((person) => person.name).includes(myNewPost.name)) {
-    response.status(404).send("Name must be unique");
-  } else if (myNewPost.name === "" || myNewPost.number === "") {
-    response.status(404).send("The name or number is missing");
-  } else {
-    persons.push(myNewPost);
-    response.status(200).json(myNewPost);
+  const body = request.body;
+
+  if (body.name === undefined) {
+    return response.status(400).json({ error: "name missing" });
   }
-  // console.log(myNewPost);
-  //  const person = new Person({
-  //    name: sita,
-  //    number: 12345,
-  //  });
 
-  //  note.save().then((result) => {
-  //    console.log("note saved!");
-  //    mongoose.connection.close();
-  //  });
+  const person = new Person({
+    name: body.name,
+    number: body.number
+  });
 
+  person.save().then((addedPerson) => {
+    response.json(addedPerson);
+  });
 });
 
 app.use((request, response, next) => {
