@@ -33,11 +33,15 @@ app.get("/api/persons/:id", (request, response) => {
     ? response.json(personInfo)
     : response.status(404).send(`There is no person info at id ${myId}`);
 });
-app.delete("/api/persons/:id", (request, response) => {
-  const myId = Number(request.params.id);
-  persons = persons.filter((person) => person.id !== myId);
-  response.status(204).send(`The person info at id ${myId} has been deleted`);
+
+app.delete("/api/persons/:id", (request, response, next) => {
+  Person.findByIdAndRemove(request.params.id)
+    .then((result) => {
+      response.status(204).end();
+    })
+    .catch((error) => next(error));
 });
+
 
 app.post("/api/persons", (request, response) => {
   const body = request.body;
