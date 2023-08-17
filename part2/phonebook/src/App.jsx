@@ -5,13 +5,12 @@ import Filter from "./components/Filter";
 import Notification from "./components/Notification";
 import personServices from "./services/phonebook";
 
-
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [filterName, setfilterName] = useState("");
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  const [notification,setNotification]=useState("")
+  const [notification, setNotification] = useState("");
 
   useEffect(() => {
     let myAxiosPromise = personServices.getAll();
@@ -24,13 +23,23 @@ const App = () => {
     let newPerson = { name: newName, number: newNumber };
     let postPromise = personServices.create(newPerson);
 
-    postPromise.then((result) => {
-      setPersons(persons.concat(result.data));
-    }).catch(e=>console.log(e));
+    postPromise
+      .then((result) => {
+        setPersons(persons.concat(result.data));
+      })
+      .catch((error) => {
+        setNotification(error.response.data.error);//to show error in frontend
+      });
   };
-  const updateNum = () => {
-   
-    setPersons(persons.map(val => val.name === newName ? {...val,number:newNumber}:val))
+  const updateNum = (obj) => {
+    let myObj = { name: obj.name, number: newNumber };
+
+    personServices.updateNumber(obj.id, myObj);
+    setPersons(
+      persons.map((val) =>
+        val.name === newName ? { ...val, number: newNumber } : val
+      )
+    );
   };
 
   const handleSubmit = (event) => {
@@ -38,16 +47,23 @@ const App = () => {
     let personsArray = persons.map((val) => {
       return val.name;
     });
+    let myVal = persons.find((val) => val.name === newName);
+    //    let myVal = persons.find((val) => val.name === newName)
+    // console.log(myVal)
+    // updateNum(myVal);
     !personsArray.includes(newName)
       ? addContact()
       : window.confirm(
           newName +
             " is already added to the phonebook,replace the old number with a new one "
         )
-      ? updateNum()
-        : null;
+      ? updateNum(myVal)
+      : null;
+
     setNotification(`Added ${newName}`);
-    setTimeout(() => { setNotification("")},2000);
+    setTimeout(() => {
+      setNotification("");
+    }, 2000);
     setNewName("");
     setNewNumber("");
   };
@@ -81,7 +97,11 @@ const App = () => {
         handleSubmit={handleSubmit}
       />
       <h2>Numbers</h2>
-      <Persons persons={showVal} setPersons={setPersons} notification={setNotification} />
+      <Persons
+        persons={showVal}
+        setPersons={setPersons}
+        notification={setNotification}
+      />
     </div>
   );
 };
