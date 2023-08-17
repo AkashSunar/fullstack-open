@@ -28,18 +28,18 @@ const App = () => {
         setPersons(persons.concat(result.data));
       })
       .catch((error) => {
-        setNotification(error.response.data.error);//to show error in frontend
+        setNotification(error.response.data.error); //to show error in frontend
       });
   };
   const updateNum = (obj) => {
     let myObj = { name: obj.name, number: newNumber };
-
-    personServices.updateNumber(obj.id, myObj);
-    setPersons(
-      persons.map((val) =>
-        val.name === newName ? { ...val, number: newNumber } : val
-      )
+    let myArray = persons.map((val) =>
+      val.name === newName ? { ...val, number: newNumber } : val
     );
+    personServices
+      .updateNumber(obj.id, myObj)
+      .then((result) => setPersons(myArray))
+      .catch((e) => setNotification(e.response.data.error));
   };
 
   const handleSubmit = (event) => {

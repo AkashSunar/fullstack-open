@@ -40,14 +40,6 @@ app.get("/api/persons/:id", (request, response, next) => {
     });
 });
 
-// app.get("/api/persons/:id", (request, response) => {
-//   const myId = Number(request.params.id);
-//   const personInfo = persons.find((person) => person.id === myId);
-//   personInfo //using ternary operato
-//     ? response.json(personInfo)
-//     : response.status(404).send(`There is no person info at id ${myId}`);
-// });
-
 app.delete("/api/persons/:id", (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
     .then((result) => {
@@ -58,10 +50,6 @@ app.delete("/api/persons/:id", (request, response, next) => {
 
 app.post("/api/persons", (request, response, next) => {
   const body = request.body;
-
-  // if (body.name === undefined) {
-  //   return response.status(400).json({ error: "name missing" });
-  // }
 
   const person = new Person({
     name: body.name,
