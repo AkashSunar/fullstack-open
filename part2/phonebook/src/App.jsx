@@ -26,6 +26,7 @@ const App = () => {
     postPromise
       .then((result) => {
         setPersons(persons.concat(result.data));
+        setNotification(`Added ${newName}`)
       })
       .catch((error) => {
         setNotification(error.response.data.error); //to show error in frontend
@@ -38,7 +39,11 @@ const App = () => {
     );
     personServices
       .updateNumber(obj.id, myObj)
-      .then((result) => setPersons(myArray))
+      .then((result) => {
+        setPersons(myArray)
+        setNotification(`Added ${newName}`);
+        
+      })
       .catch((e) => setNotification(e.response.data.error));
   };
 
@@ -60,7 +65,6 @@ const App = () => {
       ? updateNum(myVal)
       : null;
 
-    setNotification(`Added ${newName}`);
     setTimeout(() => {
       setNotification("");
     }, 2000);

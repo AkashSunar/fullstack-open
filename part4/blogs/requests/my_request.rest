@@ -1,0 +1,13 @@
+###
+GET http://localhost:3003/api/blogs/ 
+
+###
+POSt http://localhost:3003/api/blogs/ 
+content-type: application/json
+
+{
+      "title": "love story",
+  "author": "prabesh magar",
+  "url": "http://www.myblog.com",
+  "likes": 1000
+}

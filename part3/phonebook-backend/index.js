@@ -42,7 +42,7 @@ app.get("/api/persons/:id", (request, response, next) => {
 
 app.delete("/api/persons/:id", (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then((result) => {
+    .then(() => {
       response.status(204).end("Item  is deleted");
     })
     .catch((error) => next(error));
@@ -84,7 +84,7 @@ app.put("/api/persons/:id", (request, response, next) => {
     .catch((error) => next(error));
 });
 
-app.use((request, response, next) => {
+app.use((request, response) => {
   response.status(404).send("the url is not found");
 });
 
