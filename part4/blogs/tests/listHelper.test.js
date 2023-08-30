@@ -25,7 +25,6 @@ describe("total likes", () => {
       likes: 10,
       __v: 0,
     },
-    
   ];
 
   test("when list has only one blog, equals the likes of that", () => {
@@ -42,30 +41,51 @@ describe("total likes", () => {
   });
 });
 
+const blogs = [
+  {
+    title: "Canonical string reduction",
+    author: "Roshan Sunar",
+    likes: 12,
+  },
+  {
+    title: "overthinking reduction",
+    author: "Roshan Sunar",
+    likes: 10,
+  },
+  {
+    title: "saalcastry research",
+    author: "Sworup Pandit",
+    likes: 5,
+  },
+];
+
 describe("favorite blog", () => {
-    const blogs = [
-      {
-        title: "Canonical string reduction",
-        author: "Edsger W. Dijkstra",
-        likes: 12,
-      },
-      {
-        title: "overthinking reduction",
-        author: "Roshan Sunar",
-        likes: 10,
-      },
-      {
-        title: "saalcastry research",
-        author: "Sworup Pandit",
-        likes: 5,
-      },
-    ];
-    test("finds the blog with most likes", () => {
-        const result = listHelper.favoriteBlog(blogs);
+  test("finds the blog with most likes", () => {
+    const result = listHelper.favoriteBlog(blogs);
+    expect(result).toEqual({
+      title: "Canonical string reduction",
+      author: "Roshan Sunar",
+      likes: 12,
+    });
+  });
+});
+
+describe("most blog", () => {
+  test("returns the author with most blogs", () => {
+    let result = listHelper.mostBlogs(blogs);
+    expect(result).toEqual({
+      author: "Roshan Sunar",
+      blogs: 2,
+    });
+  });
+});
+
+describe("most likes", () => {
+    test("returns the author with most likes", () => {
+        let result = listHelper.mostLikes(blogs);
         expect(result).toEqual({
-          title: "Canonical string reduction",
-          author: "Edsger W. Dijkstra",
-          likes: 12,
-        });
+            author: "Roshan Sunar",
+            likes:22
+        })
     })
 })
