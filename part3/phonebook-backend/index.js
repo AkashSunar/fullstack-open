@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const Person = require("./models/person");
 
 app.use(express.json());
@@ -9,21 +9,23 @@ app.use(cors());
 app.use(express.static("dist"));
 const morgan = require("morgan");
 
-morgan.token("body", (req, res) => JSON.stringify(req.body));
+morgan.token("body", (req) => JSON.stringify(req.body));
 app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms :body")
 );
 let myDate = new Date();
-let persons = [];
+// let persons = [];
 app.get("/api/persons", (request, response) => {
   Person.find({}).then((result) => {
     response.json(result);
   });
 });
 app.get("/info", (request, response) => {
-  response.send(
-    `<p>Phonebook has info for ${persons.length} people<br> ${myDate} </p>`
-  );
+  Person.find({}).then((result) => {
+    response.send(
+      `<p>Phonebook has info for ${result.length} people<br> ${myDate} </p>`
+    );
+  });
 });
 
 app.get("/api/persons/:id", (request, response, next) => {

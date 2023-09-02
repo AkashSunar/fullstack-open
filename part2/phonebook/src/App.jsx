@@ -11,7 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [notification, setNotification] = useState("");
-
+  const [action, setAction] = useState("");
   useEffect(() => {
     let myAxiosPromise = personServices.getAll();
     myAxiosPromise.then((myResult) => {
@@ -27,6 +27,7 @@ const App = () => {
       .then((result) => {
         setPersons(persons.concat(result.data));
         setNotification(`Added ${newName}`)
+        setAction("added");
       })
       .catch((error) => {
         setNotification(error.response.data.error); //to show error in frontend
@@ -90,7 +91,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notification} />
+      <Notification message={notification} action={action} />
       <Filter handleFilterName={handleFilterName} />
       <h2>add a new</h2>
       <PersonForm
@@ -105,6 +106,7 @@ const App = () => {
         persons={showVal}
         setPersons={setPersons}
         notification={setNotification}
+        action={setAction}
       />
     </div>
   );

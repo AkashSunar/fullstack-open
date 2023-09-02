@@ -1,5 +1,13 @@
 .update{
-     background-color: cyan;
+     background-color: green;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.deleted{
+     background-color: red;
   border-radius: 10px;
   padding: 10px;
   font-size: 30px;

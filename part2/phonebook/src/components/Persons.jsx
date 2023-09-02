@@ -1,12 +1,13 @@
 import personServices from "../services/phonebook"
 // import Notification from "./Notification";
 
-const Persons = ({ persons, setPersons,notification }) => {
+const Persons = ({ persons, setPersons,notification, action }) => {
   const handleDelete = (id, name) => {
   if (window.confirm(`Delete ${name}?`)) {
       personServices.deletePerson(id).then(() => {
         setPersons(persons.filter((person) => person.id !== id))
         notification(`Deleted ${name}`);
+        action('deleted');
         setTimeout(()=>{notification("")},2000)
       }).catch((error) => {
         if (error.response.status === 404) {
