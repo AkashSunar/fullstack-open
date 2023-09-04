@@ -1,5 +1,5 @@
 const app = require("express").Router();
-const Blog = require("../models/blog")
+const Blog = require("../models/blog");
 
 app.get("/", (request, response) => {
   Blog.find({}).then((blogs) => {
@@ -9,6 +9,16 @@ app.get("/", (request, response) => {
 
 app.post("/", (request, response, next) => {
   const blog = new Blog(request.body);
+  
+  if (!blog.title || !blog.url) {
+    return response.status(400).json({ error: "title or url is required" });
+  }
+
+  // const myBlog = request.body;
+  // if (!myBlog.title || !myBlog.url) {
+  //   return response.status(400).json({ error: "title or url is required" });
+  // }
+
   if (!blog.likes) {
     blog.likes = 0;
   }

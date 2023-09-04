@@ -6,7 +6,7 @@ POSt http://localhost:3003/api/blogs/
 content-type: application/json
 
 {
-      "title": "hem sir ko story ",
+  #  "title": "a scary story",
   "author": "sunil ",
   "url": "http://www.myblog.com",
   "likes":300

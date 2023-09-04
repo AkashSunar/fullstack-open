@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const supertest = require("supertest");
 const app = require("../app");
 const api = supertest(app);
-const Blog = require("../models/blog")
+const Blog = require("../models/blog");
 
 const initialBlogs = [
   {
@@ -22,7 +22,7 @@ beforeEach(async () => {
   await Blog.deleteMany({});
   let blogObject = new Blog(initialBlogs[0]);
   await blogObject.save();
-   blogObject = new Blog(initialBlogs[1]);
+  blogObject = new Blog(initialBlogs[1]);
   await blogObject.save();
 });
 
@@ -66,8 +66,8 @@ test("adding a new blog", async () => {
   expect(response.body).toHaveLength(initialBlogs.length + 1);
 
   const titles = response.body.map((blog) => blog.title);
-  expect(titles).toContain(newBlog.title)
-})
+  expect(titles).toContain(newBlog.title);
+});
 test("missing likes property defaults to zero", async () => {
   const newBlog = {
     title: "bahubali",
@@ -76,4 +76,20 @@ test("missing likes property defaults to zero", async () => {
   };
   const response = await api.post("/api/blogs").send(newBlog);
   expect(response.body.likes).toBe(0);
-  })
+});
+test("missing 'title' or 'url' in new blog", async () => {
+  const noTitleBlog = {
+    author: "hari",
+    url: "http://hariblogs",
+    likes: 300,
+  };
+
+  const noUrlBlog = {
+    title: " a horror story",
+    author: "shyam",
+    likes: 200,
+  };
+
+  await api.post("/api/blogs").send(noTitleBlog).expect(400);
+  await api.post("/api/blogs").send(noUrlBlog).expect(400);
+});
