@@ -41,3 +41,30 @@ test("there are two blogs", async () => {
 afterAll(async () => {
   await mongoose.connection.close();
 });
+
+test("blogs have propert id", async () => {
+  const response = await api.get("/api/blogs");
+  console.log(response)
+  response.body.forEach((blog) => {
+    expect(blog.id).toBeDefined();
+  });
+});
+
+test("adding a new blog", async () => {
+  const newBlog = {
+    title: "balen ko shrimati ",
+    author: "Rishi dhamala",
+    url: "http://www.myblog.com",
+    likes: 1500,
+  };
+  await api
+    .post("/api/blogs")
+    .send(newBlog)
+    .expect(201)
+    .expect("Content-Type", /application\/json/);
+  const response = await api.get("/api/blogs");
+  expect(response.body).toHaveLength(initialBlogs.length + 1);
+
+  const titles = response.body.map((blog) => blog.title);
+  expect(titles).toContain(newBlog.title)
+})
