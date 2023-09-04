@@ -6,8 +6,8 @@ POSt http://localhost:3003/api/blogs/
 content-type: application/json
 
 {
-      "title": "hem sir ko danger love story",
-  "author": "sunil xunu munu",
+      "title": "hem sir ko story ",
+  "author": "sunil ",
   "url": "http://www.myblog.com",
-  "likes": 1000
+  "likes":300
 }

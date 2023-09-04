@@ -9,7 +9,9 @@ app.get("/", (request, response) => {
 
 app.post("/", (request, response, next) => {
   const blog = new Blog(request.body);
-
+  if (!blog.likes) {
+    blog.likes = 0;
+  }
   blog
     .save()
     .then((result) => {

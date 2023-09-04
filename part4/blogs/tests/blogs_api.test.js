@@ -42,9 +42,9 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-test("blogs have propert id", async () => {
+test("blogs have property id", async () => {
   const response = await api.get("/api/blogs");
-  console.log(response)
+  // console.log(response)
   response.body.forEach((blog) => {
     expect(blog.id).toBeDefined();
   });
@@ -68,3 +68,12 @@ test("adding a new blog", async () => {
   const titles = response.body.map((blog) => blog.title);
   expect(titles).toContain(newBlog.title)
 })
+test("missing likes property defaults to zero", async () => {
+  const newBlog = {
+    title: "bahubali",
+    author: " SS rajamauli",
+    url: "http://www.myblog.com",
+  };
+  const response = await api.post("/api/blogs").send(newBlog);
+  expect(response.body.likes).toBe(0);
+  })
