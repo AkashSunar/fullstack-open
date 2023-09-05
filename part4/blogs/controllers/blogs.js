@@ -1,35 +1,49 @@
 const app = require("express").Router();
 const Blog = require("../models/blog");
 
-app.get("/", (request, response) => {
-  Blog.find({}).then((blogs) => {
+// app.get("/", (request, response) => {
+//   Blog.find({}).then((blogs) => {
+//     response.json(blogs);
+//   });
+// });
+
+app.get("/", async (request, response) => {
+  try {
+    const blogs = await Blog.find({});
     response.json(blogs);
-  });
+  } catch (error) {
+    // Handle errors here
+    response.status(500).json({ error: "An error occurred" });
+  }
 });
 
-app.post("/", (request, response, next) => {
-  const blog = new Blog(request.body);
-  
-  if (!blog.title || !blog.url) {
-    return response.status(400).json({ error: "title or url is required" });
-  }
+app.post("/", async (request, response, next) => {
+  try {
+    const blog = new Blog(request.body);
 
-  // const myBlog = request.body;
-  // if (!myBlog.title || !myBlog.url) {
-  //   return response.status(400).json({ error: "title or url is required" });
-  // }
+    if (!blog.title || !blog.url) {
+      return response.status(400).json({ error: "title or url is required" });
+    }
 
-  if (!blog.likes) {
-    blog.likes = 0;
+    if (!blog.likes) {
+      blog.likes = 0;
+    }
+
+    const result = await blog.save();
+    response.status(201).json(result);
+  } catch (e) {
+    next(e);
   }
-  blog
-    .save()
-    .then((result) => {
-      response.status(201).json(result);
-    })
-    .catch((e) => {
-      next(e);
-    });
+});
+
+app.delete("/:id", async (request, response) => {
+  const id = request.params.id;
+  try {
+    await Blog.findByIdAndRemove(id);
+    response.status(204).end();
+  } catch (error) {
+    response.status(400).json({ error: "blog id is missing"});
+  }
 });
 
 module.exports = app;

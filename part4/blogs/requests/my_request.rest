@@ -6,8 +6,11 @@ POSt http://localhost:3003/api/blogs/
 content-type: application/json
 
 {
-  #  "title": "a scary story",
-  "author": "sunil ",
+  "title": "a lovely story",
+  "author": "jagdish",
   "url": "http://www.myblog.com",
   "likes":300
 }
+
+###
+DELETE http://localhost:3003/api/blogs/64f5fd24d4aab29a6f3620d8
