@@ -1,4 +1,5 @@
 const app = require("express").Router();
+const { response } = require("../app");
 const Blog = require("../models/blog");
 
 // app.get("/", (request, response) => {
@@ -42,7 +43,20 @@ app.delete("/:id", async (request, response) => {
     await Blog.findByIdAndRemove(id);
     response.status(204).end();
   } catch (error) {
-    response.status(400).json({ error: "blog id is missing"});
+    response.status(400).json({ error: "blog id is missing" });
+  }
+});
+
+app.put("/:id", async (request, response) => {
+  const body = request.body;
+  const blog = {
+    likes: body.likes,
+  };
+  try {
+    await Blog.findByIdAndUpdate(request.params.id, blog);
+    response.status(204).json(blog);
+  } catch (error) {
+    response.status(400).json({ error: "id is missing" });
   }
 });
 
