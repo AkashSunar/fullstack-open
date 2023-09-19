@@ -4,6 +4,7 @@ import { addVote } from "../reducers/anecdoteReducer";
 const AnecdoteList = () => {
   const dispatch = useDispatch();
   const anecdotes = useSelector((state) => {
+    state = JSON.parse(JSON.stringify(state));
     return state.anecdotes.sort((val1, val2) => {
       return val2.votes - val1.votes;
     });
