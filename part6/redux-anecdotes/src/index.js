@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import App from "./App";
 import anecdoteReducer from "./reducers/anecdoteReducer";
 import filterReducer from "./reducers/filterReducer";
+import notificationReducer from "./reducers/notificationReducer";
 
 // const reducer = combineReducers({
 //   anecdotes: anecdoteReducer,
@@ -15,6 +16,7 @@ const store = configureStore({
   reducer: {
     anecdotes: anecdoteReducer,
     filterAnecdotes: filterReducer,
+    notification: notificationReducer,
   },
 });
 // const store = createStore(reducer);
