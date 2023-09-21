@@ -3,7 +3,6 @@ import Notification from "./components/Notification";
 import { useQuery } from "@tanstack/react-query";
 import { getAnecdotes } from "./services/requests";
 
-
 const App = () => {
   const handleVote = (anecdote) => {
     console.log("vote");
@@ -11,8 +10,9 @@ const App = () => {
 
   const result = useQuery({
     queryKey: ["anecdotes"],
-    queryFn:getAnecdotes,
+    queryFn: getAnecdotes,
     retry: 1,
+    refetchOnWindowFocus: false,
   });
 
   if (result.isLoading) {
@@ -23,7 +23,6 @@ const App = () => {
       <span>anecdote service not available due to problems in server</span>
     );
   }
-
   const anecdotes = result.data;
 
   return (
