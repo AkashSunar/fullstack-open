@@ -31,7 +31,10 @@ const App = () => {
       type: "DISPLAY_NOTIFICATION",
       payload: `anecdote "${anecdote.content}" voted`,
     });
-    setTimeout(() => notificationDispatch({type:"REMOVE_NOTIFICATION"}), 5000);
+    setTimeout(
+      () => notificationDispatch({ type: "REMOVE_NOTIFICATION" }),
+      5000
+    );
   };
 
   const result = useQuery({

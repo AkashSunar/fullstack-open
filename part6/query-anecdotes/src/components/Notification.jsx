@@ -9,7 +9,7 @@ const Notification = (props) => {
     marginBottom: 5,
   };
 
-  return <div style={style}>{notification }</div>;
+  return <div style={style}>{notification}</div>;
 };
 
 export default Notification;

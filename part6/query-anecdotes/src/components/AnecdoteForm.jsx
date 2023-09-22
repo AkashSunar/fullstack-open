@@ -1,14 +1,25 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createAnecdote } from "../services/requests";
+import { useReducer } from "react";
+import NotificationContext from "../NotificationContext";
+import { useContext } from "react";
 
 const AnecdoteForm = () => {
-   const getId = () => (100000 * Math.random()).toFixed(0);
+ const [notification, notificationDispatch] = useContext(NotificationContext);
+  const getId = () => (100000 * Math.random()).toFixed(0);
   const onCreate = (event) => {
     event.preventDefault();
     const content = event.target.anecdote.value;
     content.length >= 5
       ? newAnecdoteMutation.mutate({ content, id: getId(), votes: 0 })
-      : alert("Anecdote must be of at least 5 charcters");
+      : notificationDispatch({
+          type: "DISPLAY_NOTIFICATION",
+          payload:"too short anecdote,must have 5 or more"
+        })
+      setTimeout(
+        () => notificationDispatch({ type: "REMOVE_NOTIFICATION" }),
+        5000
+      );
     event.target.anecdote.value = "";
   };
 
