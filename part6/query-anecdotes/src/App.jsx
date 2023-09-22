@@ -2,27 +2,12 @@ import AnecdoteForm from "./components/AnecdoteForm";
 import Notification from "./components/Notification";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getAnecdotes, updateAnecdote } from "./services/requests";
-import { useReducer } from "react";
-import NotificationContext from "./NotificationContext";
-import { useContext } from "react";
-
-const notificationReducer = (state, action) => {
-  switch (action.type) {
-    case "DISPLAY_NOTIFICATION":
-      return action.payload;
-    case "REMOVE_NOTIFICATION":
-      return "";
-    default:
-      return state;
-  }
-};
+import { useNotificationDispatch, useNotificationValue } from "./NotificationContext";
 
 const App = () => {
-  const [notification, notificationDispatch] = useReducer(
-    notificationReducer,
-    ""
-  );
   // const[notification,notificationDispatch]=useContext(NotificationContext)
+  const notificationDispatch = useNotificationDispatch();
+  const notification=useNotificationValue()
 
   const queryClient = useQueryClient();
   const handleVote = (anecdote) => {
@@ -60,7 +45,7 @@ const App = () => {
   const anecdotes = result.data;
 
   return (
-    <NotificationContext.Provider value={[notification, notificationDispatch]}>
+    <>
       <h3>Anecdote app</h3>
       {notification ? <Notification /> : null}
       {/* <Notification /> */}
@@ -75,7 +60,7 @@ const App = () => {
           </div>
         </div>
       ))}
-    </NotificationContext.Provider>
+    </>
   );
 };
 

@@ -1,11 +1,12 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createAnecdote } from "../services/requests";
-import { useReducer } from "react";
-import NotificationContext from "../NotificationContext";
-import { useContext } from "react";
+
+import { useNotificationDispatch } from "../NotificationContext";
 
 const AnecdoteForm = () => {
- const [notification, notificationDispatch] = useContext(NotificationContext);
+  // const [notification, notificationDispatch] = useContext(NotificationContext);
+  const notificationDispatch = useNotificationDispatch();
+
   const getId = () => (100000 * Math.random()).toFixed(0);
   const onCreate = (event) => {
     event.preventDefault();
@@ -14,12 +15,12 @@ const AnecdoteForm = () => {
       ? newAnecdoteMutation.mutate({ content, id: getId(), votes: 0 })
       : notificationDispatch({
           type: "DISPLAY_NOTIFICATION",
-          payload:"too short anecdote,must have 5 or more"
-        })
-      setTimeout(
-        () => notificationDispatch({ type: "REMOVE_NOTIFICATION" }),
-        5000
-      );
+          payload: "too short anecdote,must have 5 or more",
+        });
+    setTimeout(
+      () => notificationDispatch({ type: "REMOVE_NOTIFICATION" }),
+      5000
+    );
     event.target.anecdote.value = "";
   };
 
