@@ -2,11 +2,11 @@
 GET http://localhost:3003/api/blogs/ 
 
 ###
-POSt http://localhost:3003/api/blogs/ 
+POSt http://localhost:3001/api/blogs/ 
 content-type: application/json
 
 {
-  "title": "a lovely story",
+  "title":" A enjoyfull life",
   "author": "jagdish",
   "url": "http://www.myblog.com",
   "likes":300
@@ -28,7 +28,7 @@ POSt http://localhost:3001/api/users/
 content-type: application/json
 
 {
-  "username":"akash",
-  "name":"Akash Sunar",
-  "password":"12345"
-}
+  "username":"sunil",
+  "name":"Sunil Tajpuriya",
+  "password":"000000"
+ }

@@ -12,15 +12,24 @@ app.get("/", async (request, response) => {
   }
 });
 
-app.post("/", async (req, res) => {
-    const body = req.body;
-    console.log(body)
+app.post("/", async (req, res,next) => {
+  const body = req.body;
+  if (!body.username || !body.password) {
+    return res.status(400).json({
+      error: "username or password is required",
+    });
+  }
+  if (body.username.length <3 || body.password.length <3) {
+    return res.status(400).json({
+      error: "username and password must be greater than 3 character"
+    });
+  }
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(body.password, saltRounds);
-    const user = new User({
-        username: body.username,
-        passwordHash: passwordHash,
-        name:body.name
+  const user = new User({
+    username: body.username,
+    passwordHash: passwordHash,
+    name: body.name,
   });
   try {
     const result = await user.save();

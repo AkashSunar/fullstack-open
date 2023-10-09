@@ -23,7 +23,9 @@ app.post("/", async (request, response, next) => {
     const blog = new Blog(request.body);
 
     if (!blog.title || !blog.url) {
-      return response.status(400).json({ error: "title or url is required" });
+      return response.status(400).json({
+        error: "title or url is required"
+      });
     }
 
     if (!blog.likes) {
