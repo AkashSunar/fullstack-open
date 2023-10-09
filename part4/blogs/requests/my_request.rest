@@ -22,3 +22,13 @@ Content-Type: application/json
 {
   "likes":5000
 }
+
+###
+POSt http://localhost:3001/api/users/ 
+content-type: application/json
+
+{
+  "username":"akash",
+  "name":"Akash Sunar",
+  "password":"12345"
+}
