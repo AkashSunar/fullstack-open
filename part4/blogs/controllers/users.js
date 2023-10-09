@@ -2,12 +2,18 @@ const app = require("express").Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 
+
 app.get("/", async (request, response) => {
   try {
-    const blogs = await User.find({});
+    const blogs = await User.find({}).populate("blog", {
+      title: 1,
+      author: 1,
+      url: 1,
+      likes: 1,
+    });
     response.json(blogs);
   } catch (error) {
-    // Handle errors here
+    // Handle errors h
     response.status(500).json({ error: "An error occurred" });
   }
 });

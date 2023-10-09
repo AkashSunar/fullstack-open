@@ -1,6 +1,7 @@
 const app = require("express").Router();
 const { response } = require("../app");
 const Blog = require("../models/blog");
+const User = require("../models/user");
 
 // app.get("/", (request, response) => {
 //   Blog.find({}).then((blogs) => {
@@ -10,7 +11,7 @@ const Blog = require("../models/blog");
 
 app.get("/", async (request, response) => {
   try {
-    const blogs = await Blog.find({});
+    const blogs = await Blog.find({}).populate("user", { username:1,name:1,id:1});
     response.json(blogs);
   } catch (error) {
     // Handle errors here
@@ -18,13 +19,22 @@ app.get("/", async (request, response) => {
   }
 });
 
-app.post("/", async (request, response, next) => {
+app.post("/", async (req, response, next) => {
   try {
-    const blog = new Blog(request.body);
+    const body = req.body;
+    const user = await User.findById(req.body.userId);
+   
+    const blog = new Blog({
+      title: body.title,
+      author: body.author,
+      url: body.url,
+      likes: body.likes,
+      user: user.id,
+    });
 
     if (!blog.title || !blog.url) {
       return response.status(400).json({
-        error: "title or url is required"
+        error: "title or url is required",
       });
     }
 
@@ -33,7 +43,9 @@ app.post("/", async (request, response, next) => {
     }
 
     const result = await blog.save();
-    response.status(201).json(result);
+   response.status(201).json(result);
+   user.blog = user.blog.concat(result.id);
+    await user.save();
   } catch (e) {
     next(e);
   }

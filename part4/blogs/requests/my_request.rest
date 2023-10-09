@@ -6,11 +6,12 @@ POSt http://localhost:3001/api/blogs/
 content-type: application/json
 
 {
-  "title":" A enjoyfull life",
-  "author": "jagdish",
+  "title":" A horror story",
+  "author": "himal",
   "url": "http://www.myblog.com",
-  "likes":300
-}
+  "likes":400,
+   "userId":"652413b40b086b8c71d47671"
+ }
 
 ###
 DELETE http://localhost:3003/api/blogs/64f5fd24d4aab29a6f3620d8
@@ -28,7 +29,7 @@ POSt http://localhost:3001/api/users/
 content-type: application/json
 
 {
-  "username":"sunil",
-  "name":"Sunil Tajpuriya",
-  "password":"000000"
+  "username":"akash",
+  "name":"Akash Sunar",
+  "password":"44444"
  }
