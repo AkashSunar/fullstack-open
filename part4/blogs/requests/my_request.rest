@@ -33,3 +33,12 @@ content-type: application/json
   "name":"Akash Sunar",
   "password":"44444"
  }
+
+###
+POSt http://localhost:3001/api/login/ 
+content-type: application/json
+
+{
+  "username":"akash",
+  "password":"44444"
+ }
