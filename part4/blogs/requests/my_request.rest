@@ -4,14 +4,14 @@ GET http://localhost:3003/api/blogs/
 ###
 POSt http://localhost:3001/api/blogs/ 
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFrYXNoIiwiaWQiOiI2NTI0MTNiNDBiMDg2YjhjNzFkNDc2NzEiLCJpYXQiOjE2OTczMDM4NDV9.6I4GE0V-ncqeLAx-zSmHQ83tmT8lCFPYExn5AmGaIHM 
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFrYXNoIiwiaWQiOiI2NTI0MTNiNDBiMDg2YjhjNzFkNDc2NzEiLCJpYXQiOjE2OTczODc4NzR9.DiS7ENO705eS77CJC3ReAZRV6C3DNcfB8pL2T8zps2Q
 
 {
-  "title":" A joyfull story",
+  "title":"lets go butwal",
   "author": "himal",
   "url": "http://www.myblog.com",
   "likes":400,
-   "userId":"652413b40b086b8c71d47671"
+  "userId":"652413b40b086b8c71d47671"
  }
 
 ###
