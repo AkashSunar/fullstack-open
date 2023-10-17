@@ -4,11 +4,13 @@ const Blog = require("../models/blog");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 
-
-
 app.get("/", async (request, response) => {
   try {
-    const blogs = await Blog.find({}).populate("user", { username:1,name:1,id:1});
+    const blogs = await Blog.find({}).populate("user", {
+      username: 1,
+      name: 1,
+      id: 1,
+    });
     response.json(blogs);
   } catch (error) {
     response.status(500).json({ error: "An error occurred" });
@@ -24,11 +26,11 @@ app.post("/", async (req, response, next) => {
     // );
     const decodedToken = jwt.verify(req.token, process.env.SECRET);
     if (!decodedToken.id) {
-        return response.status(401).json({ error: "token invalid" });
-      }
-      const user = await User.findById(decodedToken.id);
+      return response.status(401).json({ error: "token invalid" });
+    }
+    const user = await User.findById(decodedToken.id);
     // const user = await User.findById(req.body.userId);
-   
+
     const blog = new Blog({
       title: body.title,
       author: body.author,
@@ -48,8 +50,8 @@ app.post("/", async (req, response, next) => {
     }
 
     const result = await blog.save();
-   response.status(201).json(result);
-   user.blog = user.blog.concat(result.id);
+    response.status(201).json(result);
+    user.blog = user.blog.concat(result.id);
     await user.save();
   } catch (e) {
     next(e);
@@ -58,12 +60,39 @@ app.post("/", async (req, response, next) => {
 
 app.delete("/:id", async (request, response) => {
   const id = request.params.id;
-  try {
-    await Blog.findByIdAndRemove(id);
-    response.status(204).end();
-  } catch (error) {
-    response.status(400).json({ error: "blog id is missing" });
+  //checking request includes token or not
+  const token = request.token;
+
+  if (!token) {
+    return response.status(401).json({ error: "Token missing or invalid" });
   }
+  // verifying token and extracting user_id
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  console.log(decodedToken, "Decoded token ");
+  if (!decodedToken) {
+    return response.status(401).json({ error: "Token missing or invalid" });
+  }
+  // finding blog to be deleted
+try {
+  const blog = await Blog.findById(id);
+  // console.log(blog, "blog fetched");
+  if (!blog) {
+    return response.status(401).json({ error: "blog not found" });
+  }
+  //! Check if the user trying to delete the blog is the creator of the blog
+  console.log(blog.user, "checking blog.user");
+  if (blog.user.toString() !== decodedToken.id) {
+    console.log("checking if");
+    return response
+      .status(403)
+      .json({ error: "user dont match to the deletor" });
+  }
+
+  await Blog.findByIdAndRemove(id);
+  response.status(204).end();
+} catch (error) {
+  response.status(400).json({ error: "blog id is missing" });
+}
 });
 
 app.put("/:id", async (request, response) => {
