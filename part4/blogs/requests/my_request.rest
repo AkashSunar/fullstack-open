@@ -4,10 +4,10 @@ GET http://localhost:3003/api/blogs/
 ###
 POSt http://localhost:3001/api/blogs/ 
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhpbWFsIiwiaWQiOiI2NTJlNjJmY2Q0OTYxZjQxOWMxY2Q2OGMiLCJpYXQiOjE2OTc1Mzg4MzAsImV4cCI6MTY5NzU0MTUzMH0.QsL6IO39LZMwgbeQ05T04zvbHkn7CRIaC6hCuhCYyyM
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFrYXNoIiwiaWQiOiI2NTI0MTNiNDBiMDg2YjhjNzFkNDc2NzEiLCJpYXQiOjE2OTc2MzA0NDIsImV4cCI6MTY5NzYzMzE0Mn0.1XdpDwdU9HksH0zJHxU16G21sueaCSi6lUrtt5XRmiM
 
 {
-  "title":"note of himal",
+  "title":"new blog 4",
   "author": "himal",
   "url": "http://www.myblog.com",
   "likes":400,
@@ -15,8 +15,8 @@ authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhpb
  }
 
 ###
-DELETE http://localhost:3001/api/blogs/652e6327d4961f419c1cd692
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhpbWFsIiwiaWQiOiI2NTJlNjJmY2Q0OTYxZjQxOWMxY2Q2OGMiLCJpYXQiOjE2OTc1Mzg4ODAsImV4cCI6MTY5NzU0MTU4MH0.Bibb3dB4N-74IycPdu_fLd855NCX_IB_EDtb_QDmwn8
+DELETE http://localhost:3001/api/blogs/652c2d9b6e8b24b9dd304e36
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFrYXNoIiwiaWQiOiI2NTI0MTNiNDBiMDg2YjhjNzFkNDc2NzEiLCJpYXQiOjE2OTc2MzA0NDIsImV4cCI6MTY5NzYzMzE0Mn0.1XdpDwdU9HksH0zJHxU16G21sueaCSi6lUrtt5XRmiM
 
 
 
@@ -43,6 +43,6 @@ POSt http://localhost:3001/api/login/
 content-type: application/json
 
 {
-  "username":"himal",
-  "password":"55555"
+  "username":"akash",
+  "password":"44444"
  }

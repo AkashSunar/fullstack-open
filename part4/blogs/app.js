@@ -12,6 +12,7 @@ const {
   unknownEndpoint,
   errorHandler,
   tokenExtractor,
+  userExtractor,
 } = require("./utils/middleware");
 
 app.use(cors());
@@ -21,7 +22,7 @@ mongoose.connect(url);
 
 app.use(requestLogger);
 
-app.use("/api/blogs/", tokenExtractor, blogRouter);
+app.use("/api/blogs/", tokenExtractor,userExtractor,blogRouter);
 app.use("/api/users/", userRouter);
 app.use("/api/login/", loginRouter);
 
