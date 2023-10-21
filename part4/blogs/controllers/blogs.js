@@ -47,7 +47,10 @@ app.post("/", async (request, response, next) => {
     }
 
     const result = await blog.save();
-    const newBlog=await Blog.findById(result._id).populate("user",{username:1,name:1})
+    const newBlog = await Blog.findById(result._id).populate("user", {
+      username: 1,
+      name: 1,
+    });
     response.status(201).json(newBlog);
     userExist.blog = userExist.blog.concat(result._id);
     // user.blog = user.blog.concat(result.id);
