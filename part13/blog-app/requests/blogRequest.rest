@@ -18,3 +18,29 @@ DELETE http://localhost:3001/api/blogs/88
 ###
 PUT http://localhost:3001/api/blogs/1
 
+###
+POST http://localhost:3001/api/users
+content-type: application/json
+
+{
+   "name":"joy lobo",
+   "username":"joy"
+}
+
+###
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+   "username":"joy",
+   "password":"secret"
+}
+
+###
+PUT http://localhost:3001/api/users/joy
+content-type: application/json
+
+{
+   "username":"joy"
+}
+
