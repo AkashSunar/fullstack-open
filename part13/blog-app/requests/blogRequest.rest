@@ -13,3 +13,7 @@ GET http://localhost:3001/api/blogs
 
 ###
 DELETE http://localhost:3001/api/blogs/4
+
+###
+PUT http://localhost:3001/api/blogs/8
+
