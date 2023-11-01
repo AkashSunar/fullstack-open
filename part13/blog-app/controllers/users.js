@@ -7,12 +7,13 @@ router.get("/", async (req, res) => {
   res.json(users);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", async (req, res,next) => {
   try {
     const user = await User.create(req.body);
     res.json(user);
   } catch (error) {
-    return res.status(400).json({ error });
+       res.status(500).send({"error":[error.message]});
+      next(error)
   }
 });
 
@@ -25,7 +26,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:username", async (req, res) => {
+router.put("/:username", async (req, res,next) => {
   const user = await User.findOne({ username: req.params.username });
   try {
     if (user) {
@@ -35,6 +36,15 @@ router.put("/:username", async (req, res) => {
     }
   } catch (error) {
     next(error);
+  }
+});
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    await User.destroy({ where: { id: id } });
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).send("error occured");
   }
 });
 

@@ -24,7 +24,7 @@ content-type: application/json
 
 {
    "name":"joy lobo",
-   "username":"joy"
+   "username":"joy@45"
 }
 
 ###
@@ -44,3 +44,5 @@ content-type: application/json
    "username":"joy"
 }
 
+###
+DELETE http://localhost:3001/api/users/1
