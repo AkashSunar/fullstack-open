@@ -12,7 +12,7 @@ User.init(
       autoIncrement: true,
     },
     username: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       unique: true,
       allowNull: false,
       validate: {
@@ -20,7 +20,7 @@ User.init(
       }
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
   },
@@ -31,5 +31,5 @@ User.init(
     modelName: "bloguser",
   }
 );
-User.sync()
+User.sync({alter:true});
 module.exports = User;

@@ -21,7 +21,7 @@ Blog.init(
       allowNull: false,
     },
     likes: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       defaultValue: 0,
     },
   },
@@ -32,4 +32,5 @@ Blog.init(
     modelName: "blog",
   }
 );
+Blog.sync({alter:true});
 module.exports = Blog;
