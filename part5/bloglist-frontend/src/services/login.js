@@ -4,11 +4,11 @@ let token = null;
 
 const login = async (credentials) => {
     const response = await axios.post(baseUrl, credentials);
-    return response.data;
+    return response;
 }
 
-const setToken = (newToken) => {
-    token=`Bearer ${newToken}`
+// const setToken = (newToken) => {
+//     token=`Bearer ${newToken}`
     
-}
-export default { login,setToken };
+// }
+export default { login };

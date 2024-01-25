@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
+import CreateBlog from "./components/CreateBlog";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
+  const [notification, setNotification] = useState(null);
+  const [statusCode, setStatusCode] = useState(null);
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -20,7 +24,8 @@ const App = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
       setUser(user);
-      loginService.setToken(user.token);
+      blogService.setToken(user.token);
+      // loginService.setToken(user.token);
     }
   }, []);
 
@@ -30,16 +35,21 @@ const App = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    // console.log(credentials, "from usestate");
     try {
       const user = await loginService.login(credentials);
+      setStatusCode(user.status);
       window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
-      // console.log(window.localStorage.getItem("loggedBlogappUser"));
-      // console.log(user,"checking user");
-      setUser(user);
+      setUser(user.data);
+      setNotification(`${user.data.username} logged in`);
+      setTimeout(() => {
+        setNotification(null);
+      }, 4000);
       // loginService.setToken(user.token);
     } catch (error) {
-      console.log(error.message);
+      setNotification(error.response.data.error);
+      setTimeout(() => {
+        setNotification(null);
+      }, 4000);
     }
   };
   const handleLogout = () => {
@@ -50,6 +60,9 @@ const App = () => {
     return (
       <>
         {" "}
+        {notification ? (
+          <Notification notification={notification} statusCode={statusCode} />
+        ) : null}
         <h2>log in to application</h2>
         <form action="">
           <div className="usermane">
@@ -78,8 +91,9 @@ const App = () => {
     return (
       <>
         <h2>blogs</h2>
-        <p>{`${user.name} logged in`}</p>
+        {`${user.name} logged in`}
         <button onClick={handleLogout}>log out</button>
+        <CreateBlog setStatusCode={setStatusCode} statusCode={statusCode} />
         {blogs.map((blog) => (
           <Blog key={blog.id} blog={blog} />
         ))}
