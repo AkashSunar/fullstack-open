@@ -9,6 +9,7 @@ const CreateBlog = ({ setStatusCode, statusCode }) => {
     url: "",
   });
   const [notification, setNotification] = useState(null);
+  const [createVisible, setCreateVisible] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -28,36 +29,46 @@ const CreateBlog = ({ setStatusCode, statusCode }) => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const hiddenWhenVisible = { display: createVisible ? "none" : "" };
+  const showWhenVisible = { display: createVisible ? "" : "none" };
+
   return (
     <div>
       {notification ? (
         <Notification notification={notification} statusCode={statusCode} />
       ) : null}
-      <h2>Create new</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="">title</label>{" "}
-        <input
-          type="text"
-          name="title"
-          value={newBlog.title}
-          onChange={handleChange}
-        />
-        <label htmlFor="">author</label>
-        <input
-          type="text"
-          name="author"
-          value={newBlog.author}
-          onChange={handleChange}
-        />
-        <label htmlFor="">url</label>
-        <input
-          type="text"
-          name="url"
-          value={newBlog.url}
-          onChange={handleChange}
-        />
-        <button>create</button>
-      </form>
+      <div style={hiddenWhenVisible}>
+        <button onClick={() => setCreateVisible(true)}>new note</button>
+      </div>
+      <div style={showWhenVisible}>
+        <h2>Create new</h2>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="">title</label>{" "}
+          <input
+            type="text"
+            name="title"
+            value={newBlog.title}
+            onChange={handleChange}
+          />
+          <label htmlFor="">author</label>
+          <input
+            type="text"
+            name="author"
+            value={newBlog.author}
+            onChange={handleChange}
+          />
+          <label htmlFor="">url</label>
+          <input
+            type="text"
+            name="url"
+            value={newBlog.url}
+            onChange={handleChange}
+          />
+          <button>create</button>
+        </form>
+        <button onClick={() => setCreateVisible(false)}>cancel</button>
+      </div>
     </div>
   );
 };
