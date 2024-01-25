@@ -39,7 +39,7 @@ const CreateBlog = ({ setStatusCode, statusCode }) => {
         <Notification notification={notification} statusCode={statusCode} />
       ) : null}
       <div style={hiddenWhenVisible}>
-        <button onClick={() => setCreateVisible(true)}>new note</button>
+        <button onClick={() => setCreateVisible(true)}>create new note</button>
       </div>
       <div style={showWhenVisible}>
         <h2>Create new</h2>
