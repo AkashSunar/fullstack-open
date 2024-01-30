@@ -24,8 +24,10 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem("loggedBlogappUser");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
+      // console.log(user,"checking user")
       setUser(user);
-      blogService.setToken(user.token);
+       blogService.setToken(user.data.token);
+      // console.log(myToken,'checking from blogServices')
       // loginService.setToken(user.token);
     }
   }, []);
@@ -63,7 +65,7 @@ const App = () => {
       <>
         {" "}
         {notification ? (
-          <Notification notification={notification} statusCode={statusCode} />
+          <Notification notification={notification} statusCode={statusCode}  />
         ) : null}
         <h2>log in to application</h2>
         <form action="">
@@ -90,12 +92,13 @@ const App = () => {
     );
   };
   const blog = () => {
+    // console.log(user,"from component blog")
     return (
       <>
         <h2>blogs</h2>
         {`${user.name} logged in`}
         <button onClick={handleLogout}>log out</button>
-        <CreateBlog setStatusCode={setStatusCode} statusCode={statusCode} />
+        <CreateBlog setStatusCode={setStatusCode} statusCode={statusCode} user={user} />
         {blogs.map((blog) => (
           <Blog key={blog.id} blog={blog} />
         ))}

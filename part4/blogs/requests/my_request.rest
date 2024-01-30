@@ -4,28 +4,27 @@ GET http://localhost:3003/api/blogs/
 ###
 POST http://localhost:3001/api/blogs/ 
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFrc2giLCJpZCI6IjY1MzE1Y2RlMGQ4ZTQyZmIyOTNiOTJjOSIsImlhdCI6MTY5NzczMzg3NSwiZXhwIjoxNjk3NzM2NTc1fQ.9XrPUbc6q3cCsgTx5-xj6Hhe-B3eQQByumPajY6xOP0
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFrc2giLCJpZCI6IjY1MzE1Y2RlMGQ4ZTQyZmIyOTNiOTJjOSIsImlhdCI6MTcwNjUzOTI0NCwiZXhwIjoxNzA2NTQxOTQ0fQ.JGN83wdAO0o6z_s8ZfqRbbBJ9KFJnFewievuJ-K9rq8
 
 {
-  "title":"blog by akash",
+  "title":"sanskrit",
   "author": "himal",
   "url": "http://www.myblog.com",
-  "likes":400,
-  "userId":"652413b40b086b8c71d47671"
+  "likes":400
  }
 
 ###
-DELETE http://localhost:3001/api/blogs/65315d640d8e42fb293b92de
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFrc2giLCJpZCI6IjY1MzE1Y2RlMGQ4ZTQyZmIyOTNiOTJjOSIsImlhdCI6MTY5NzczMzg3NSwiZXhwIjoxNjk3NzM2NTc1fQ.9XrPUbc6q3cCsgTx5-xj6Hhe-B3eQQByumPajY6xOP0
+DELETE http://localhost:3001/api/blogs/65b393acb1cbf9de8ca97559
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFrc2giLCJpZCI6IjY1MzE1Y2RlMGQ4ZTQyZmIyOTNiOTJjOSIsImlhdCI6MTcwNjI2NzI3OCwiZXhwIjoxNzA2MjY5OTc4fQ.xaCRRjakMluXmmv7MWZM0hAuRfcOGh1Jk5Iew89A5nM
 
 
 
 ###
-PUT http://localhost:3003/api/blogs/64e8de076df910abc64cd8a2
+PUT http://localhost:3001/api/blogs/65b21d92bb7735eb786c6e0c
 Content-Type: application/json
 
 {
-  "likes":5000
+  "likes":50
 }
 
 ###
@@ -43,6 +42,6 @@ POSt http://localhost:3001/api/login/
 content-type: application/json
 
 {
-  "username":"akash",
+  "username":"aksh",
   "password":"55555"
  }

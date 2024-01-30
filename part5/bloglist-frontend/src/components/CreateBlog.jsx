@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import blogServices from "../services/blogs";
 import Notification from "./Notification";
 
-const CreateBlog = ({ setStatusCode, statusCode }) => {
+const CreateBlog = ({ setStatusCode, statusCode,user }) => {
+
   const [newBlog, setNewBlog] = useState({
     title: "",
     author: "",
@@ -11,9 +12,19 @@ const CreateBlog = ({ setStatusCode, statusCode }) => {
   const [notification, setNotification] = useState(null);
   const [createVisible, setCreateVisible] = useState(false);
 
+  // useEffect(() => {
+  //   const loggedUserJSON = window.localStorage.getItem("loggedBlogappUser");
+  //   if (loggedUserJSON) {
+  //      user = JSON.parse(loggedUserJSON);
+  //     console.log(user,"useEffect from create blog")
+  //   }
+  // },[])
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const myBlog = await blogServices.createBlog(newBlog);
+    console.log(user,"checking user")
+    const myBlog = await blogServices.createBlog(newBlog, user.data.token);
+
     console.log(myBlog.data);
     setStatusCode(myBlog.status);
 

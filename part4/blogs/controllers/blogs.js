@@ -1,5 +1,4 @@
 const app = require("express").Router();
-const { response } = require("../app");
 const Blog = require("../models/blog");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
@@ -21,13 +20,20 @@ app.post("/", async (request, response, next) => {
   try {
     const body = request.body;
 
-    // const decodedToken = jwt.verify(req.token, process.env.SECRET);
+    // const decodedToken = jwt.verify(request.token, process.env.SECRET);
     // if (!decodedToken.id) {
     //   return response.status(401).json({ error: "token invalid" });
     // }
 
     const user = request.user;
+    // console.log(user,"from back end")
     const userExist = await User.findById(user);
+    if (!userExist) {
+      return response.status(400).json({
+        error: "this user is not found",
+      });
+    }
+    // console.log(userExist,"checking user")
     const blog = new Blog({
       title: body.title,
       author: body.author,
@@ -91,7 +97,7 @@ app.put("/:id", async (request, response) => {
   };
   try {
     await Blog.findByIdAndUpdate(request.params.id, blog);
-    response.status(204).json(blog);
+    response.status(200).json(blog);
   } catch (error) {
     response.status(400).json({ error: "id is missing" });
   }
