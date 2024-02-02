@@ -39,6 +39,7 @@ const CreateBlog = ({ setStatusCode, statusCode,user }) => {
       ...newBlog,
       [e.target.name]: e.target.value,
     });
+    console.log(e.target.value)
   };
 
   const hiddenWhenVisible = { display: createVisible ? "none" : "" };
@@ -59,21 +60,21 @@ const CreateBlog = ({ setStatusCode, statusCode,user }) => {
           <input
             type="text"
             name="title"
-            value={newBlog.title}
+            // value={newBlog.title}
             onChange={handleChange}
           />
           <label htmlFor="">author</label>
           <input
             type="text"
             name="author"
-            value={newBlog.author}
+            // value={newBlog.author}
             onChange={handleChange}
           />
           <label htmlFor="">url</label>
           <input
             type="text"
             name="url"
-            value={newBlog.url}
+            // value={newBlog.url}
             onChange={handleChange}
           />
           <button>create</button>

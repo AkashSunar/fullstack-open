@@ -99,7 +99,7 @@ const App = () => {
         {`${user.name} logged in`}
         <button onClick={handleLogout}>log out</button>
         <CreateBlog setStatusCode={setStatusCode} statusCode={statusCode} user={user} />
-        {blogs.map((blog) => (
+        {blogs.sort((b,a)=>a.likes-b.likes).map((blog) => (
           <Blog key={blog.id} blog={blog} />
         ))}
       </>
