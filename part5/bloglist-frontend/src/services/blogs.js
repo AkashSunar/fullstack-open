@@ -13,18 +13,23 @@ const getAll = () => {
 };
 
 const createBlog = async (newObject, token) => {
-  console.log(newObject,"kkkk")
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
   const response = await axios.post(baseUrl, newObject, config);
   return response;
 };
-
+const deleteBlog = async (id, token) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const response = await axios.delete(`${baseUrl}/${id}`, config);
+  return response;
+};
 const updateLike = async (newObject) => {
   const updateUrl = baseUrl + `/${newObject.id}`;
   const response = await axios.put(updateUrl, newObject);
   return response.data;
 };
 
-export default { getAll, setToken, createBlog, updateLike };
+export default { getAll, setToken, createBlog, deleteBlog, updateLike };

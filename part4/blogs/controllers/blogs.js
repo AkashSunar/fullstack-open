@@ -77,7 +77,6 @@ app.delete("/:id", async (request, response) => {
     //! Check if the user trying to delete the blog is the creator of the blog
 
     if (blog.user.toString() !== request.user) {
-      console.log("checking if");
       return response
         .status(403)
         .json({ error: "user dont match to the deletor" });
