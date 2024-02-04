@@ -23,12 +23,14 @@ const CreateBlog = ({ setStatusCode, statusCode,user }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(user,"checking user")
-    const myBlog = await blogServices.createBlog(newBlog, user.data.token);
+    const myBlog = await blogServices.createBlog(newBlog, user.token);
 
-    console.log(myBlog.data);
+    // console.log(myBlog.data);
     setStatusCode(myBlog.status);
 
     setNotification(`a new blog ${newBlog.title} added by ${newBlog.author}`);
+    console.log(notification)
+    console.log(typeof(notification),"checking notification")
     setTimeout(() => {
       setNotification(null);
     }, 5000);
@@ -39,7 +41,6 @@ const CreateBlog = ({ setStatusCode, statusCode,user }) => {
       ...newBlog,
       [e.target.name]: e.target.value,
     });
-    console.log(e.target.value)
   };
 
   const hiddenWhenVisible = { display: createVisible ? "none" : "" };

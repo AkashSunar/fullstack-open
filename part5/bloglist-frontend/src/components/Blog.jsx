@@ -10,10 +10,11 @@ const Blog = ({ blog,user }) => {
     blog.likes+=1
     setLikes({...blog,likes})
     const likeCheck = await blogServices.updateLike(blog);
-    console.log(blog.id, "checking blog")
+    // console.log(blog.id, "checking blog")
+   
   }
   const handleDelete = (id,user) => {
-    window.confirm(`remove the blog?`)? blogServices.deleteBlog(id,user.data.token):null
+    window.confirm(`remove the blog?`)? blogServices.deleteBlog(id,user.token):null
     // window.confirm(`Remove the blog`)
   }
   return (

@@ -23,10 +23,10 @@ const App = () => {
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedBlogappUser");
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      // console.log(user,"checking user")
-      setUser(user);
-       blogService.setToken(user.data.token);
+      const userFromLocalStorage = JSON.parse(loggedUserJSON);
+      // console.log(user, "checking user mm");
+      setUser(userFromLocalStorage.data);
+      blogService.setToken(userFromLocalStorage.data.token);
       // console.log(myToken,'checking from blogServices')
       // loginService.setToken(user.token);
     }
@@ -60,12 +60,11 @@ const App = () => {
   };
 
   const loginForm = () => {
-
     return (
       <>
         {" "}
         {notification ? (
-          <Notification notification={notification} statusCode={statusCode}  />
+          <Notification notification={notification} statusCode={statusCode} />
         ) : null}
         <h2>log in to application</h2>
         <form action="">
@@ -98,10 +97,16 @@ const App = () => {
         <h2>blogs</h2>
         {`${user.name} logged in`}
         <button onClick={handleLogout}>log out</button>
-        <CreateBlog setStatusCode={setStatusCode} statusCode={statusCode} user={user} />
-        {blogs.sort((b,a)=>a.likes-b.likes).map((blog) => (
-          <Blog key={blog.id} blog={blog} user={user} />
-        ))}
+        <CreateBlog
+          setStatusCode={setStatusCode}
+          statusCode={statusCode}
+          user={user}
+        />
+        {blogs
+          .sort((b, a) => a.likes - b.likes)
+          .map((blog) => (
+            <Blog key={blog.id} blog={blog} user={user} />
+          ))}
       </>
     );
   };
