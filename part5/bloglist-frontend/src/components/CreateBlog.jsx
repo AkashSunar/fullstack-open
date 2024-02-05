@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import blogServices from "../services/blogs";
 import Notification from "./Notification";
-
-const CreateBlog = ({ setStatusCode, statusCode,user }) => {
-
+import PropTypes from "prop-types";
+const CreateBlog = ({ setStatusCode, statusCode, user }) => {
   const [newBlog, setNewBlog] = useState({
     title: "",
     author: "",
@@ -12,27 +11,13 @@ const CreateBlog = ({ setStatusCode, statusCode,user }) => {
   const [notification, setNotification] = useState(null);
   const [createVisible, setCreateVisible] = useState(false);
 
-  // useEffect(() => {
-  //   const loggedUserJSON = window.localStorage.getItem("loggedBlogappUser");
-  //   if (loggedUserJSON) {
-  //      user = JSON.parse(loggedUserJSON);
-  //     console.log(user,"useEffect from create blog")
-  //   }
-  // },[])
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(user,"checking user")
     const myBlog = await blogServices.createBlog(newBlog, user.token);
-
-    // console.log(myBlog.data);
     setStatusCode(myBlog.status);
-
     setNotification(`a new blog ${newBlog.title} added by ${newBlog.author}`);
-    console.log(notification)
-    console.log(typeof(notification),"checking notification")
     setTimeout(() => {
-      setNotification(null);
+      setNotification("");
     }, 5000);
   };
 
@@ -84,6 +69,11 @@ const CreateBlog = ({ setStatusCode, statusCode,user }) => {
       </div>
     </div>
   );
+};
+CreateBlog.propTypes = {
+  statusCode: PropTypes.object.isRequired,
+  setStatusCode: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default CreateBlog;

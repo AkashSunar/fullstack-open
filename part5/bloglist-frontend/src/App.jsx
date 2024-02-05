@@ -4,6 +4,7 @@ import blogService from "./services/blogs";
 import loginService from "./services/login";
 import CreateBlog from "./components/CreateBlog";
 import Notification from "./components/Notification";
+import PropTypes from "prop-types";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -41,6 +42,8 @@ const App = () => {
     try {
       const user = await loginService.login(credentials);
       setStatusCode(user.status);
+      console.log(statusCode,'checking status code')
+      console.log(typeof(statusCode))
       window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
       setUser(user.data);
       setNotification(`${user.data.username} logged in`);
@@ -112,5 +115,9 @@ const App = () => {
   };
   return <div>{user === null ? loginForm() : blog()}</div>;
 };
-
+CreateBlog.prototypes = {
+  statusCode: PropTypes.object.isRequired,
+  setStatusCode: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+};
 export default App;
