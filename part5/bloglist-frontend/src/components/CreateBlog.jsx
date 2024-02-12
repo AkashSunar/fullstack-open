@@ -8,7 +8,7 @@ const CreateBlog = ({ setStatusCode, statusCode, user }) => {
     author: "",
     url: "",
   });
-  const [notification, setNotification] = useState(null);
+  const [notification, setNotification] = useState("");
   const [createVisible, setCreateVisible] = useState(false);
 
   const handleSubmit = async (event) => {
@@ -71,7 +71,7 @@ const CreateBlog = ({ setStatusCode, statusCode, user }) => {
   );
 };
 CreateBlog.propTypes = {
-  statusCode: PropTypes.object.isRequired,
+  statusCode: PropTypes.number.isRequired,
   setStatusCode: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };

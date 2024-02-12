@@ -10,7 +10,7 @@ const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
   const [notification, setNotification] = useState(null);
-  const [statusCode, setStatusCode] = useState(null);
+  const [statusCode, setStatusCode] = useState(12);
   // const [createVisible, setCreateVisible] = useState(false);
   const [credentials, setCredentials] = useState({
     username: "",
@@ -42,8 +42,6 @@ const App = () => {
     try {
       const user = await loginService.login(credentials);
       setStatusCode(user.status);
-      console.log(statusCode,'checking status code')
-      console.log(typeof(statusCode))
       window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
       setUser(user.data);
       setNotification(`${user.data.username} logged in`);
