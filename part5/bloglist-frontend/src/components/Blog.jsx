@@ -1,10 +1,12 @@
 import { useState } from "react";
-import "./blog.css";
+// import "./blog.css";
 import blogServices from "../services/blogs";
 const Blog = ({ blog, user }) => {
   const [viewVisible, setViewVisible] = useState(false);
   const [likes, setLikes] = useState(blog.likes);
   const hiddeneWhenVisible = { display: viewVisible ? "none" : "" };
+  // console.log(user.username, "checking user");
+  // console.log(blog, "checking blog");
 
   const handleLike = async (blog) => {
     blog.likes += 1;
@@ -18,7 +20,8 @@ const Blog = ({ blog, user }) => {
   };
   return (
     <div className="blogTitle">
-      {blog.title}{" "}
+      {blog.title}
+      {blog.author}{" "}
       <button onClick={() => setViewVisible(!viewVisible)}>
         {viewVisible === true ? "view" : "hide"}
       </button>
@@ -30,9 +33,11 @@ const Blog = ({ blog, user }) => {
         <br />
         {blog.author}
       </div>
-      <div className="delete-btn">
-        <button onClick={() => handleDelete(blog.id, user)}>Delete</button>
-      </div>
+      {user.username === blog.user[0].username ? (
+        <div className="delete-btn">
+          <button onClick={() => handleDelete(blog.id, user)}>Delete</button>
+        </div>
+      ) : null}
     </div>
   );
 };
